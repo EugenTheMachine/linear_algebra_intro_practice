@@ -1,16 +1,14 @@
 # Linear algebra introduction practice
 
-The repository contains practical homework from the course "Incorrect Data Processing Problems".
-
-Please, use NumPy, SciPy, scikit-learn and similar libs to implement the tasks.
+My own implementation of the Python labs on linear algebra.
 
 ## Practices
 
-1. Vectors;
-2. Matrices;
-3. Linear and affine mappings;
-4. Matrix decompositions;
-5. Regularization.
+- [x] Vectors;
+- [ ] Matrices;
+- [ ] Linear and affine mappings;
+- [ ] Matrix decompositions;
+- [ ] Regularization.
 
 
 ## Useful links
