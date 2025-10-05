@@ -5,7 +5,7 @@ My own implementation of the Python labs on linear algebra.
 ## Practices
 
 - [x] Vectors;
-- [ ] Matrices;
+- [x] Matrices;
 - [ ] Linear and affine mappings;
 - [ ] Matrix decompositions;
 - [ ] Regularization.

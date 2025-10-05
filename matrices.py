@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.linalg import inv, qr
 
 
 def get_matrix(n: int, m: int) -> np.ndarray:
@@ -11,7 +12,7 @@ def get_matrix(n: int, m: int) -> np.ndarray:
     Returns:
         np.ndarray: matrix n*m.
     """
-    raise NotImplementedError
+    return np.random.rand(n, m)
 
 
 def add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
@@ -24,20 +25,20 @@ def add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: matrix sum.
     """
-    raise NotImplementedError
+    return np.add(x, y)
 
 
-def scalar_multiplication(x: np.ndarray, a: float) -> np.ndarray:
+def scalar_multiplication(x: np.ndarray, c: float) -> np.ndarray:
     """Matrix multiplication by scalar.
 
     Args:
         x (np.ndarray): matrix.
-        a (float): scalar.
+        c (float): scalar.
 
     Returns:
         np.ndarray: multiplied matrix.
     """
-    raise NotImplementedError
+    return x * c
 
 
 def dot_product(x: np.ndarray, y: np.ndarray) -> np.ndarray:
@@ -50,7 +51,7 @@ def dot_product(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: dot product.
     """
-    raise NotImplementedError
+    return np.dot(x, y)
 
 
 def identity_matrix(dim: int) -> np.ndarray:
@@ -62,7 +63,7 @@ def identity_matrix(dim: int) -> np.ndarray:
     Returns:
         np.ndarray: identity matrix.
     """
-    raise NotImplementedError
+    return np.eye(dim)
 
 
 def matrix_inverse(x: np.ndarray) -> np.ndarray:
@@ -74,7 +75,7 @@ def matrix_inverse(x: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: inverse matrix.
     """
-    raise NotImplementedError
+    return inv(x)
 
 
 def matrix_transpose(x: np.ndarray) -> np.ndarray:
@@ -86,7 +87,7 @@ def matrix_transpose(x: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: transosed matrix.
     """
-    raise NotImplementedError
+    return x.T
 
 
 def hadamard_product(x: np.ndarray, y: np.ndarray) -> np.ndarray:
@@ -99,7 +100,7 @@ def hadamard_product(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: hadamard produc
     """
-    raise NotImplementedError
+    return np.multiply(x, y)
 
 
 def basis(x: np.ndarray) -> tuple[int]:
@@ -111,7 +112,9 @@ def basis(x: np.ndarray) -> tuple[int]:
     Returns:
         tuple[int]: indexes of basis columns.
     """
-    raise NotImplementedError
+    _, _, inds = qr(x, mode='economic', pivoting=True)
+    rank = np.linalg.matrix_rank(x)
+    return tuple(inds[:rank])
 
 
 def norm(x: np.ndarray, order: int | float | str) -> float:
@@ -124,4 +127,19 @@ def norm(x: np.ndarray, order: int | float | str) -> float:
     Returns:
         float: vector norm
     """
-    raise NotImplementedError
+    return np.linalg.norm(x, ord=order)
+
+if __name__ == "__main__":
+    a = get_matrix(3, 3)
+    b = get_matrix(3, 3)
+    print("Matrix a:\n", a)
+    print("Matrix b:\n", b)
+    print("a + b:\n", add(a, b))
+    print("2 * a:\n", scalar_multiplication(a, 2))
+    print("a . b:\n", dot_product(a, b))
+    print("Identity matrix 3x3:\n", identity_matrix(3))
+    print("Inverse of a:\n", matrix_inverse(a))
+    print("Transpose of a:\n", matrix_transpose(a))
+    print("Hadamard product of a and b:\n", hadamard_product(a, b))
+    print("Basis of a:", basis(a))
+    print("Frobenius norm of a:", norm(a, 'fro'))
